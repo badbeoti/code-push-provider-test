@@ -6,34 +6,25 @@
  */
 
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 import CodePush from 'react-native-code-push';
+import CodePushProvider from './CodePushProvider';
+import Test from './Info';
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  console.log('test');
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-    </SafeAreaView>
+    <CodePushProvider
+      options={{
+        rollbackRetryOptions: {
+          delayInHours: 0,
+          maxRetryAttempts: 1,
+        },
+        // installMode: CodePush.InstallMode.IMMEDIATE,
+        deploymentKey: 'L9Iy1ruOjR4VQZTonDykGim8qSbrzgnsV2Q_r',
+      }}>
+      <Test />
+    </CodePushProvider>
   );
 }
 
@@ -84,7 +75,13 @@ class ClassApp extends Component<{}> {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView
+        style={{
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <Text>{this.state.status}</Text>
         <Text>{this.state.progress}</Text>
         <Text>v3</Text>
@@ -112,6 +109,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CodePush({
-  deploymentKey: 'L9Iy1ruOjR4VQZTonDykGim8qSbrzgnsV2Q_r',
-})(ClassApp);
+// export default CodePush({
+//   deploymentKey: 'L9Iy1ruOjR4VQZTonDykGim8qSbrzgnsV2Q_r',
+// })(ClassApp);
+
+export default App;
