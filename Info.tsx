@@ -3,7 +3,7 @@ import {SafeAreaView, Text} from 'react-native';
 import {useCodePush} from './CodePushProvider';
 
 const Info = () => {
-  const {status, progress, label} = useCodePush();
+  const {status, progress, label, statusText} = useCodePush();
 
   return (
     <SafeAreaView
@@ -14,6 +14,7 @@ const Info = () => {
         alignItems: 'center',
       }}>
       <Text>{status}</Text>
+      <Text>{statusText}</Text>
       <Text>{progress}</Text>
       <Text>{label}</Text>
     </SafeAreaView>
